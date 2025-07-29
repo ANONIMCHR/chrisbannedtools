@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chris Official Banned Tool</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Efek latar belakang gradien animasi untuk nuansa teknologi */
+        .tech-background {
+            background: linear-gradient(-45deg, #1e0a3c, #000000, #2d0b59, #4c1d95);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #6d28d9;
+            border-radius: 10px;
+            border: 2px solid #1a1a1a;
+        }
+        /* Styling untuk progress bar */
+        .progress-bar-container {
+            background-color: #374151; /* gray-700 */
+            border-radius: 9999px;
+            overflow: hidden;
+            border: 1px solid #4b5563; /* gray-600 */
+        }
+        .progress-bar {
+            height: 1.25rem; /* 20px */
+            background-color: #8b5cf6; /* purple-500 */
+            border-radius: 9999px;
+            transition: width 0.5s linear; /* Transisi lebih halus */
+            text-align: center;
+            line-height: 1.25rem;
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: white;
+            width: 0%; /* Mulai dari 0% */
+        }
+    </style>
+</head>
+<body class="tech-background text-white">
+
+    <!-- Kontainer Utama -->
+    <div class="min-h-screen flex flex-col items-center justify-center p-4">
+        
+        <!-- Panel Kontrol -->
+        <div class="w-full max-w-md bg-black bg-opacity-50 backdrop-blur-md border border-purple-500/30 rounded-2xl shadow-2xl shadow-purple-900/50 p-6 md:p-8">
+            
+            <!-- Header -->
+            <div class="text-center mb-6">
+                <h1 class="text-3xl md:text-4xl font-black text-purple-400 tracking-wider">Chris Official Banned</h1>
+                <a href="https://t.me/christandyk" target="_blank" class="text-gray-400 hover:text-purple-300 transition-colors duration-300 mt-2 block">t.me/christandyk</a>
+            </div>
+
+            <!-- Form Input -->
+            <form id="controlForm" class="space-y-5">
+                <!-- Input Nomor Target -->
+                <div>
+                    <label for="targetNumber" class="block mb-2 text-sm font-medium text-gray-300">Nomor Target</label>
+                    <input type="tel" id="targetNumber" class="w-full bg-gray-800 border border-gray-600 text-white placeholder-gray-500 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-3 transition" placeholder="Contoh: 6281234567890" required>
+                </div>
+
+                <!-- Pilihan Menu Gabungan -->
+                <div>
+                    <label for="actionMenu" class="block mb-2 text-sm font-medium text-gray-300">Pilih Tindakan</label>
+                    <select id="actionMenu" class="w-full bg-gray-800 border border-gray-600 text-white text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-3 transition">
+                        <optgroup label="Banned">
+                            <option value="banned-1" data-type="banned">Spam Permanen 1</option>
+                            <option value="banned-2" data-type="banned">Spam Permanen 2</option>
+                            <option value="banned-3" data-type="banned">Spam Permanen 3</option>
+                            <option value="banned-4" data-type="banned">Spam Permanen 4</option>
+                        </optgroup>
+                        <optgroup label="Unbanned">
+                            <option value="unbanned-1" data-type="unbanned">Unbanned 1</option>
+                            <option value="unbanned-2" data-type="unbanned">Unbanned 2</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+                <!-- Tombol Start -->
+                <button type="submit" id="startButton" class="w-full text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-900 font-bold rounded-lg text-md px-5 py-3 text-center transition-transform transform hover:scale-105 duration-300">
+                    Mulai Proses Banned
+                </button>
+            </form>
+
+            <!-- Box Status Server -->
+            <div class="mt-8 pt-5 border-t border-purple-500/20 text-center text-xs text-gray-400 space-y-2">
+                <p>Status Server: <span class="font-bold text-green-400">Aktif</span></p>
+                <p>Owner: <span class="font-bold text-purple-400">Chris Official</span></p>
+                <p>Tanggal: <span id="currentDate" class="font-bold text-gray-300"></span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pop-up / Modal -->
+    <div id="popupModal" class="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm flex items-center justify-center p-4 hidden z-50">
+        <div class="bg-gray-900 border border-purple-600 rounded-2xl shadow-xl w-full max-w-sm p-8 text-center">
+            <h2 id="popupTitle" class="text-2xl font-bold text-purple-400 mb-4">Memulai Proses...</h2>
+            <div id="timer" class="text-5xl font-mono font-bold text-white my-6">01:00</div>
+            
+            <!-- Progress Bar -->
+            <div class="progress-bar-container w-full my-4">
+                <div id="progressBar" class="progress-bar">0%</div>
+            </div>
+
+            <p class="text-gray-400 text-sm mb-6">Harap tunggu hingga proses selesai.</p>
+            
+            <button id="closePopup" class="w-full bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                Tutup
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // --- Elemen DOM ---
+        const dateElement = document.getElementById('currentDate');
+        const form = document.getElementById('controlForm');
+        const popupModal = document.getElementById('popupModal');
+        const closePopupButton = document.getElementById('closePopup');
+        const timerElement = document.getElementById('timer');
+        const progressBar = document.getElementById('progressBar');
+        const targetNumberInput = document.getElementById('targetNumber');
+        const actionMenu = document.getElementById('actionMenu');
+        const startButton = document.getElementById('startButton');
+        const popupTitle = document.getElementById('popupTitle');
+
+        let timerInterval; // Variabel untuk menyimpan interval timer
+        const DURATION = 60; // Durasi countdown dalam detik (1 menit)
+
+        // --- Fungsi untuk mengatur tanggal hari ini ---
+        function setDate() {
+            const today = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            dateElement.textContent = today.toLocaleDateString('id-ID', options);
+        }
+
+        // --- Fungsi untuk mengubah teks tombol berdasarkan pilihan menu ---
+        function updateButtonText() {
+            const selectedOption = actionMenu.options[actionMenu.selectedIndex];
+            const actionType = selectedOption.getAttribute('data-type');
+
+            if (actionType === 'banned') {
+                startButton.textContent = 'Mulai Proses Banned';
+                popupTitle.textContent = 'Starting To Spam...';
+            } else if (actionType === 'unbanned') {
+                startButton.textContent = 'Mulai Proses Unbanned';
+                popupTitle.textContent = 'Memproses Unbanned...';
+            }
+        }
+
+        // --- Fungsi untuk memulai countdown timer ---
+        function startCountdown() {
+            let elapsedTime = 0;
+            closePopupButton.disabled = true;
+
+            // Atur ulang kondisi awal pop-up
+            progressBar.classList.remove('bg-green-500');
+            progressBar.classList.add('bg-purple-500');
+            progressBar.style.width = '0%';
+            progressBar.textContent = '0%';
+            timerElement.textContent = '01:00';
+
+            timerInterval = setInterval(() => {
+                elapsedTime++;
+
+                // Update progress bar (0% ke 100%)
+                const progressPercentage = (elapsedTime / DURATION) * 100;
+                progressBar.style.width = `${progressPercentage}%`;
+                progressBar.textContent = `${Math.round(progressPercentage)}%`;
+
+                // Update timer (hitung mundur dari 60 ke 0)
+                const secondsRemaining = DURATION - elapsedTime;
+                const minutes = Math.floor(secondsRemaining / 60);
+                const remainingSecondsForDisplay = secondsRemaining % 60;
+                const formattedTime = String(minutes).padStart(2, '0') + ':' + String(remainingSecondsForDisplay).padStart(2, '0');
+                timerElement.textContent = formattedTime;
+
+                // Saat countdown selesai
+                if (elapsedTime >= DURATION) {
+                    clearInterval(timerInterval);
+                    timerElement.textContent = "Selesai!";
+                    popupTitle.textContent = "Proses Berhasil";
+                    progressBar.style.width = '100%';
+                    progressBar.textContent = 'Selesai';
+                    progressBar.classList.add('bg-green-500');
+                    closePopupButton.disabled = false;
+                }
+            }, 1000);
+        }
+
+        // --- Event Listeners ---
+
+        // Panggil fungsi saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            setDate();
+            updateButtonText();
+        });
+
+        // Update teks tombol saat menu berubah
+        actionMenu.addEventListener('change', updateButtonText);
+
+        // Tampilkan pop-up saat form di-submit
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); 
+            
+            if (targetNumberInput.value.trim() === '') {
+                alert('Silakan masukkan Nomor Target terlebih dahulu.');
+                return;
+            }
+
+            updateButtonText();
+            popupModal.classList.remove('hidden');
+            startCountdown();
+        });
+
+        // Sembunyikan pop-up saat tombol 'Tutup' diklik (hanya jika sudah aktif)
+        closePopupButton.addEventListener('click', function() {
+            if (!this.disabled) {
+                popupModal.classList.add('hidden');
+            }
+        });
+    </script>
+
+</body>
+</html>
